@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../vendor/fzaninotto/faker/src/autoload.php';
-//$faker = Faker\Factory::create('ja_JP');
-$faker = Faker\Factory::create();
+$faker = Faker\Factory::create('ja_JP');
+// $faker = Faker\Factory::create();
 
 $table_name = 'users';
 $columns = ['name', 'email', 'password', 'gender'];

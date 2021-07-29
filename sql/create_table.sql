@@ -9,7 +9,7 @@ CREATE TABLE users (
     password varchar(255) NOT NULL,
     gender varchar(16) DEFAULT NULL,
     created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at datetime NULL
+    updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE items (
@@ -19,7 +19,7 @@ CREATE TABLE items (
     price int NOT NULL,
     stock int NOT NULL,
     created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at datetime NULL
+    updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE user_items (
@@ -29,7 +29,7 @@ CREATE TABLE user_items (
     amount int NOT NULL,
     total_price int NOT NULL,
     created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at datetime NULL
+    updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE user_items
