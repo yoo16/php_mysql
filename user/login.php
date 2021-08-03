@@ -39,28 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE html>
 <html lang="ja">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>サインインページ</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
-    <style>
-        input[type="text"] {
-            margin-bottom: -1px;
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
-        }
-
-        input[type="password"] {
-            margin-bottom: 10px;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-        }
-    </style>
-</head>
+<?php include('components/head.php') ?>
 
 <body>
-    <main class="d-flex justify-content-center">
+    <main id="login" class="d-flex justify-content-center">
         <div class="w-50 mt-3 p-5 bg-light">
             <form action="" method="post">
                 <h3 class="h3 mb-3 fw-normal">Sign In</h3>
