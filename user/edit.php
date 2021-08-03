@@ -1,7 +1,8 @@
 <?php
+require_once 'config.php';
 require_once 'connect.php';
+require_once 'user_auth.php';
 
-$user = [];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = $_POST;
     $errors = validate($user);
@@ -50,8 +51,10 @@ function insert($pdo, $posts)
 </head>
 
 <body>
+    <?php include('components/nav.php') ?>
+    
     <div class="container">
-        <h2 class="h2">会員登録</h2>
+        <h2 class="h2 bg-danger text-white mt-2 p-3">ユーザ情報</h2>
 
         <form action="" method="post">
             <div class="mb-3">
@@ -88,6 +91,7 @@ function insert($pdo, $posts)
             </div>
 
             <button class="btn btn-primary">確認</button>
+            <a class="btn btn-outline-primary" href="my_page.php">戻る</a>
         </form>
     </div>
 </body>

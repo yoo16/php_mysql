@@ -1,13 +1,11 @@
 <?php
+require_once 'config.php';
 require_once 'connect.php';
 
-$sql = 'SELECT * FROM users LIMIT 10;';
-$users = fetchAll($pdo, $sql);
-
-function fetchAll($pdo, $sql)
+function all($pdo)
 {
+    $sql = "SELECT * FROM users LIMIT 10;";
     $rows = [];
-    // $rows = $pdo->query($sql)->fetchAll();
     $stmt = $pdo->query($sql);
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $rows[] = $row;
@@ -15,11 +13,21 @@ function fetchAll($pdo, $sql)
     return $rows;
 }
 
+function userCount($pdo)
+{
+    $sql = "SELECT count(id) AS count FROM users;";
+    $row = $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+    return $row['count'];
+}
+
 function labelGender($value)
 {
     $genders = ['male' => '男性', 'female' => '女性'];
     return ($value) ? $genders[$value] : '';
 }
+
+$users = all($pdo);
+$count = userCount($pdo);
 ?>
 
 <!DOCTYPE html>
@@ -35,20 +43,27 @@ function labelGender($value)
 
 <body>
     <div class="container">
-        <h2>ユーザ一覧</h2>
+        <h2 class="h2 p-3 bg-light">ユーザ一覧</h2>
+        <p><?= $count ?>件</p>
         <table class="table">
             <tr>
                 <th>氏名</th>
                 <th>メールアドレス</th>
                 <th>性別</th>
+                <th>作成日</th>
+                <th>更新日</th>
             </tr>
-            <?php foreach ($users as $user) : ?>
-                <tr>
-                    <td><?= $user['name'] ?></td>
-                    <td><?= $user['email'] ?></td>
-                    <td><?= labelGender($user['gender']) ?></td>
-                </tr>
-            <?php endforeach ?>
+            <?php if ($users) : ?>
+                <?php foreach ($users as $user) : ?>
+                    <tr>
+                        <td><?= $user['name'] ?></td>
+                        <td><?= $user['email'] ?></td>
+                        <td><?= labelGender($user['gender']) ?></td>
+                        <td><?= $user['created_at'] ?></td>
+                        <td><?= $user['updated_at'] ?></td>
+                    </tr>
+                <?php endforeach ?>
+            <?php endif ?>
         </table>
     </div>
 </body>

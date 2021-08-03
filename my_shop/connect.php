@@ -1,19 +1,17 @@
 <?php
+$db_connection = DB_CONNECTION;
+$db_name = DB_DATABASE;
+$db_host = DB_HOST;
+$db_port = DB_HOST;
+$db_user = DB_USERNAME;
+$db_password = DB_PASSWORD;
 
-$db_name = 'my_shop';
-$host = 'mysql';
-$user_name = 'root';
-$password = '';
-$dsn = "mysql:dbname={$db_name};host={$host}";
-
+$dsn = "{$db_connection}:dbname={$db_name};host={$db_host};charset=utf8;port={$db_port}";
 try {
-    $pdo = new PDO($dsn, $user_name, $password);
+    $pdo = new PDO($dsn, $db_user, $db_password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-    // echo "接続成功" . PHP_EOL;
 } catch (PDOException $e) {
-    echo "接続失敗: " . $e->getMessage() . PHP_EOL;
+    echo "接続失敗: " . $e->getMessage();
     exit;
 }
-
-
