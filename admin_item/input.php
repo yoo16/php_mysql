@@ -1,6 +1,6 @@
 <?php
-require_once '../config.php';
-require_once '../connect.php';
+require_once 'config.php';
+require_once 'connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $item = check($_POST);
