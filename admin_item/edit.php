@@ -1,12 +1,9 @@
 <?php
-require_once '../config.php';
-require_once '../connect.php';
+require_once 'config.php';
+require_once 'connect.php';
 
-
-if (empty($_GET['id'])) {
-    header('Location: list.php');
-}
-$item = findById($pdo, $_GET['id']);
+if (isset($_GET['id'])) $item = findById($pdo, $_GET['id']);
+if (empty($item)) header('Location: list.php');
 
 function findById($pdo, $id)
 {
@@ -19,15 +16,9 @@ function findById($pdo, $id)
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-</head>
+<?php include('components/head.php') ?>
 
 <body>
     <div class="container">

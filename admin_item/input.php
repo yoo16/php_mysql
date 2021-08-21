@@ -1,67 +1,19 @@
 <?php
-require_once 'config.php';
-require_once 'connect.php';
+session_start();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $item = check($_POST);
-    $errors = validate($item);
-    if (!$errors) {
-        insert($pdo, $item);
-    }
-}
-
-function check($posts)
-{
-    if (empty($posts)) return;
-    foreach ($posts as $column => $post) {
-        $posts[$column] = htmlspecialchars($post, ENT_QUOTES);
-    }
-    return $posts;
-}
-
-function validate($data)
-{
-    $errors = [];
-    if (empty($data['code'])) {
-        $errors['code'] = '商品コードを入力してください。';
-    }
-    if (empty($data['name'])) {
-        $errors['name'] = '商品名を入力してください。';
-    }
-    if (empty($data['price'])) {
-        $errors['price'] = '価格を入力してください。';
-    }
-    if ($data['stock'] < 0) {
-        $errors['stock'] = '在庫数を入力してください。';
-    }
-    return $errors;
-}
-
-function insert($pdo, $data)
-{
-    $sql = "INSERT INTO items (code, name, price, stock)
-            VALUES (:code, :name, :price, :stock)";
-    $stmt = $pdo->prepare($sql);
-    return $stmt->execute($data);
-}
+if (isset($_SESSION['item'])) $item = $_SESSION['item'];
+if (isset($_SESSION['errors'])) $errors = $_SESSION['errors'];
 ?>
 
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-</head>
+<?php include('components/head.php') ?>
 
 <body>
     <div class="container">
         <h2 class="h2">商品登録</h2>
-        <form action="" method="post">
+        <form action="add.php" method="post">
             <div class="mb-3">
                 <label for="">商品コード</label>
                 <input type="text" class="form-control" name="code" value="<?= @$item['code'] ?>">

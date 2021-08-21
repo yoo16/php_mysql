@@ -5,31 +5,18 @@ require_once 'connect.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($_POST['id']) {
-        $item = check($_POST);
-        $errors = validate($item);
-        if ($errors) {
-            $_SESSION['errors'] = $errors;
-            $_SESSION['item'] = $item;
-        } else {
-            if (isset($_SESSION['errors'])) unset($_SESION['errors']);
-            if (isset($_SESSION['item'])) unset($_SESION['item']);
-            update($pdo, $item);
-        }
+    $item = check($_POST);
+    $errors = validate($item);
+    if ($errors) {
+        $_SESSION['errors'] = $errors;
+        $_SESSION['item'] = $item;
+        header('Location: input.php');
+    } else {
+        insert($pdo, $item);
+        if (isset($_SESSION['errors'])) unset($_SESION['errors']);
+        if (isset($_SESSION['item'])) unset($_SESION['item']);
+        header('Location: list.php');
     }
-    header("Location: edit.php?id={$item['id']}");
-}
-
-function update($pdo, $data)
-{
-    $sql = "UPDATE items SET 
-            code = :code,
-            name = :name,
-            price = :price,
-            stock = :stock
-            WHERE id = :id;";
-    $stmt = $pdo->prepare($sql);
-    return $stmt->execute($data);
 }
 
 function check($posts)
@@ -49,4 +36,12 @@ function validate($data)
     if (empty($data['price'])) $errors['price'] = '価格を入力してください。';
     if ($data['stock'] < 0) $errors['stock'] = '在庫数を入力してください。';
     return $errors;
+}
+
+function insert($pdo, $data)
+{
+    $sql = "INSERT INTO items (code, name, price, stock)
+            VALUES (:code, :name, :price, :stock)";
+    $stmt = $pdo->prepare($sql);
+    return $stmt->execute($data);
 }

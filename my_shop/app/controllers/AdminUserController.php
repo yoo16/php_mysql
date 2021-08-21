@@ -15,9 +15,9 @@ class AdminUserController
         $user = new User();
         $count = $user->count();
 
-        $current_page = (isset($_GET['page'])) ? $_GET['page'] : 1;
         $max_page = 10;
         $limit = 10;
+        $current_page = (isset($_GET['page'])) ? $_GET['page'] : 1;
         $offset = ($current_page - 1) * $limit;
 
         $users = $user->all($limit, $offset);
