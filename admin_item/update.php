@@ -7,13 +7,10 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($_POST['id']) {
         $item = check($_POST);
-        $errors = validate($item);
-        if ($errors) {
-            $_SESSION['errors'] = $errors;
-            $_SESSION['item'] = $item;
-        } else {
-            if (isset($_SESSION['errors'])) unset($_SESION['errors']);
-            if (isset($_SESSION['item'])) unset($_SESION['item']);
+        $_SESSION['item'] = $item;
+        $_SESSION['errors'] = $errors = validate($item);
+        if (!$errors) {
+            if (isset($_SESSION['item'])) unset($_SESSION['item']);
             update($pdo, $item);
         }
     }

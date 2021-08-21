@@ -6,15 +6,13 @@ session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $item = check($_POST);
-    $errors = validate($item);
+    $_SESSION['item'] = $item;
+    $_SESSION['errors'] = $errors = validate($item);
     if ($errors) {
-        $_SESSION['errors'] = $errors;
-        $_SESSION['item'] = $item;
         header('Location: input.php');
     } else {
         insert($pdo, $item);
-        if (isset($_SESSION['errors'])) unset($_SESION['errors']);
-        if (isset($_SESSION['item'])) unset($_SESION['item']);
+        if (isset($_SESSION['item'])) unset($_SESSION['item']);
         header('Location: list.php');
     }
 }
