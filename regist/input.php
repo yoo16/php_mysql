@@ -6,7 +6,7 @@ $member = [
     'email' => '',
     'password' => '',
     'tel' => '',
-    'year' => 1980,
+    'birthday_at' => '1980/01/01',
     'gender' => 'male',
 ];
 
@@ -82,15 +82,9 @@ function selected($value, $target)
             </div>
 
             <div class="mb-3">
-                <label for="">誕生日年</label>
-                <div>
-                    <select name="year" class="form-control">
-                        <option value="">-- 選択してください --</option>
-                        <?php foreach (range(date('Y'), 1900) as $year) : ?>
-                            <option value="<?= $year ?>" <?= selected($year, $member['year']) ?>><?= $year ?>年</option>
-                        <?php endforeach ?>
-                    </select>
-                </div>
+                <input type="date" class="form-control" name="birthday_at" value="<?= $member['birthday_at'] ?>">
+                <label for="">誕生日</label>
+                <p></p>
             </div>
 
             <div class="mb-3">

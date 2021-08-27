@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['errors'] = $errors = validate($posts);
     if (!$errors) {
         insert($pdo, $posts);
+        unset($_SESSION['posts']);
     }
     header('Location: input.php');
 }
@@ -30,13 +31,17 @@ function validate($data)
     if (empty($data['email'])) {
         $errors['email'] = 'メールアドレスを入力してください';
     }
+    if (empty($data['password'])) {
+        $errors['password'] = 'パスワードを入力してください';
+    }
     return $errors;
 }
 
 function insert($pdo, $data)
 {
-    $sql = "INSERT INTO users (name, kana, email, password, tel ,year, gender)
-            VALUES (:name, :kana, :email, :password, :tel, :year, :gender)";
+    $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+    $sql = "INSERT INTO users (name, kana, email, password, tel ,birthday_at, gender)
+            VALUES (:name, :kana, :email, :password, :tel, :birthday_at, :gender)";
     $stmt = $pdo->prepare($sql);
     return $stmt->execute($data);
 }
