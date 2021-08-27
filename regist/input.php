@@ -98,8 +98,7 @@ function selected($value, $target)
                 </div>
             </div>
 
-            <!-- snippet: button.btn.btn-primary -->
-            <button class="btn btn-primary">確認</button>
+            <button class="btn btn-primary">登録</button>
         </form>
     </div>
 </body>

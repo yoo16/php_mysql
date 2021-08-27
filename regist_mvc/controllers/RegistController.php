@@ -12,13 +12,10 @@ class RegistController
             $member = new Member();
         }
 
-        $time = strtotime($member->value['birthday_at']);
-        $member->value['year'] = date('Y', $time);
-        $member->value['month'] = date('m', $time);
-        $member->value['day'] = date('d', $time);
-
         //エラー取得
         $errors = Session::load('errors');
+        Session::clear('errors');
+
         //HTML を表示(View)
         include 'views/regist/input.php';
     }
@@ -34,6 +31,7 @@ class RegistController
         $member->validate();
         //Memberクラスをセッションを保存
         Session::save('member', $member);
+        Session::save('errors', $member->errors);
 
         if ($member->validate()) {
             // Session::save('errors', $errors);
@@ -62,7 +60,7 @@ class RegistController
             header('Location: input.php');
         } else {
             //セッション削除
-            // unset($_SESSION['member']);
+            unset($_SESSION['member']);
             include 'views/regist/result.php';
         }
     }

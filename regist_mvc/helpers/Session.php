@@ -18,4 +18,8 @@ class Session {
         $_SESSION[$key] = $value;
     }
 
+    //セッションクリア
+    public static function clear($key) {
+        unset($_SESSION[$key]);
+    }
 }
