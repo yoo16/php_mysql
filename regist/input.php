@@ -2,11 +2,8 @@
 session_start();
 $member = [
     'name' => '',
-    'kana' => '',
     'email' => '',
     'password' => '',
-    'tel' => '',
-    'birthday_at' => '1980/01/01',
     'gender' => 'male',
 ];
 
@@ -58,12 +55,6 @@ function selected($value, $target)
             </div>
 
             <div class="form-floating">
-                <input type="text" class="form-control" name="kana" value="<?= $member['kana'] ?>">
-                <label for="">ふりがな</label>
-                <p></p>
-            </div>
-
-            <div class="form-floating">
                 <input type="email" class="form-control" name="email" value="<?= $member['email'] ?>">
                 <label for="">メールアドレス</label>
                 <p class="text-danger"><?= @$errors['email'] ?></p>
@@ -73,18 +64,6 @@ function selected($value, $target)
                 <input type="password" class="form-control" name="password" value="">
                 <label for="">パスワード</label>
                 <p class="text-danger"><?= @$errors['password'] ?></p>
-            </div>
-
-            <div class="form-floating">
-                <input type="text" class="form-control" name="tel" value="<?= $member['tel'] ?>">
-                <label for="">電話番号（ハイフンなし）</label>
-                <p class="text-danger"><?= @$errors['tel'] ?></p>
-            </div>
-
-            <div class="mb-3">
-                <input type="date" class="form-control" name="birthday_at" value="<?= $member['birthday_at'] ?>">
-                <label for="">誕生日</label>
-                <p></p>
             </div>
 
             <div class="mb-3">

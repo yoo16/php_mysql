@@ -6,12 +6,17 @@ session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['posts'] = $posts = check($_POST);
-    $_SESSION['errors'] = $errors = validate($posts);
-    if (!$errors) {
-        insert($pdo, $posts);
-        unset($_SESSION['posts']);
+    $errors = validate($posts);
+    if (findByEmail($pdo, $posts)) {
+        $errors['email'] = '既に登録されています。';
     }
-    header('Location: input.php');
+    $_SESSION['errors'] = $errors;
+    if ($errors) {
+        header('Location: input.php');
+    } else {
+        insert($pdo, $posts);
+        header('Location: result.php');
+    }
 }
 
 function check($posts)
@@ -37,11 +42,21 @@ function validate($data)
     return $errors;
 }
 
+function findByEmail($pdo, $data)
+{
+    $sql = "SELECT * FROM users WHERE email = :email";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':email', $data['email'], PDO::PARAM_STR);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $user;
+}
+
 function insert($pdo, $data)
 {
     $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
-    $sql = "INSERT INTO users (name, kana, email, password, tel ,birthday_at, gender)
-            VALUES (:name, :kana, :email, :password, :tel, :birthday_at, :gender)";
+    $sql = "INSERT INTO users (name, email, password, gender)
+            VALUES (:name, :email, :password, :gender)";
     $stmt = $pdo->prepare($sql);
     return $stmt->execute($data);
 }
