@@ -5,16 +5,20 @@ require_once 'connect.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $item = check($_POST);
-    $_SESSION['item'] = $item;
-    $_SESSION['errors'] = $errors = validate($item);
-    if ($errors) {
-        header('Location: input.php');
-    } else {
-        insert($pdo, $item);
-        if (isset($_SESSION['item'])) unset($_SESSION['item']);
-        header('Location: list.php');
+    $posts = check($_POST);
+    $errors = validate($posts);
+
+    //TODO 商品コード重複
+
+    //セッション登録
+    $_SESSION['item'] = $posts;
+    $_SESSION['errors'] = $errors;
+    if (!$errors) {
+        if (insert($pdo, $posts)) {
+            unset($_SESSION['posts']);
+        }
     }
+    header('Location: input.php');
 }
 
 function check($posts)
