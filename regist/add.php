@@ -5,18 +5,20 @@ require_once 'connect.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $_SESSION['posts'] = $posts = check($_POST);
+    $posts = check($_POST);
     $errors = validate($posts);
     if (findByEmail($pdo, $posts)) {
         $errors['email'] = '既に登録されています。';
     }
+    $_SESSION['posts'] = $posts;
     $_SESSION['errors'] = $errors;
-    if ($errors) {
-        header('Location: input.php');
-    } else {
-        insert($pdo, $posts);
-        header('Location: result.php');
+    if (!$errors) {
+        if (insert($pdo, $posts)) {
+            header('Location: result.php');
+            exit;
+        }
     }
+    header('Location: input.php');
 }
 
 function check($posts)

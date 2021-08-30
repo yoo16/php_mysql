@@ -6,6 +6,6 @@ if (isset($_SESSION['posts'])) {
     header('Location: input.php');
 }
 
-$template = 'views/regist/input.view.php';
+$template = 'views/regist/result.view.php';
 include 'views/layouts/app.view.php';
 ?>
