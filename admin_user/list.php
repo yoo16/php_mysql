@@ -57,11 +57,11 @@ function paginate($count, $current_page, $limit = 10, $per_count = 10)
 $count = userCount($pdo);
 
 //現在のページ
-$current_page = (isset($_GET['page'])) ? $_GET['page'] : 1;
+$current_page = (isset($_GET['page']) && $_GET['page'] > 0) ? $_GET['page'] : 1;
 
 //limit & offset
 $limit = 10;
-$offset = ($current_page > 1) ? $current_page - 1 : 0;
+$offset = ($current_page - 1) * $limit;
 
 //ユーザ一覧データ
 $users = all($pdo, $limit, $offset);
@@ -71,4 +71,3 @@ $paginate = paginate($count, $current_page, $limit, 5);
 extract($paginate);
 
 include 'views/admin_user/list.view.php';
-?>
