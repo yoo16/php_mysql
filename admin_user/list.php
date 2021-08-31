@@ -70,4 +70,6 @@ $users = all($pdo, $limit, $offset);
 $paginate = paginate($count, $current_page, $limit, 5);
 extract($paginate);
 
-include 'views/admin_user/list.view.php';
+//View
+$template = 'views/admin_user/list.view.php';
+include 'views/layouts/app.view.php';
