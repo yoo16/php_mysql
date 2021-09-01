@@ -1,8 +1,12 @@
 <?php
+require_once 'models/Item.php';
+
 session_start();
 
+$item = new Item();
+
 if (isset($_SESSION['item'])) {
-    $item = $_SESSION['item'];
+    $item->value = $_SESSION['item'];
 }
 if (isset($_SESSION['errors'])) {
     $errors = $_SESSION['errors'];

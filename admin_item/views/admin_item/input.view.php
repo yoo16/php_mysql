@@ -3,25 +3,25 @@
     <form action="add.php" method="post">
         <div class="mb-3 form-floating">
             <input id="code" type="text" class="form-control" 
-            name="code" value="<?= @$item['code'] ?>">
+            name="code" value="<?= @$item->value['code'] ?>">
             <label for="code">商品コード</label>
             <p class="text-danger pt-2"><?= @$errors['code'] ?></p>
         </div>
         <div class="mb-3 form-floating">
             <input id="name" type="text" class="form-control" 
-            name="name" value="<?= @$item['name'] ?>">
+            name="name" value="<?= @$item->value['name'] ?>">
             <label for="name">商品名</label>
             <p class="text-danger pt-2"><?= @$errors['name'] ?></p>
         </div>
         <div class="mb-3 form-floating">
             <input id="price" type="text" class="form-control" 
-            name="price" value="<?= @$item['price'] ?>">
+            name="price" value="<?= @$item->value['price'] ?>">
             <label for="price">価格</label>
             <p class="text-danger pt-2"><?= @$errors['price'] ?></p>
         </div>
         <div class="mb-3 form-floating">
             <input id="stock" type="text" class="form-control" 
-            name="stock" value="<?= @$item['stock'] ?>">
+            name="stock" value="<?= @$item->value['stock'] ?>">
             <label for="stock">在庫</label>
             <p class="text-danger pt-2"><?= @$errors['stock'] ?></p>
         </div>
