@@ -1,12 +1,11 @@
 <?php
-class Form
+class URL
 {
     //ラジオボタンの選択
-    public static function isInvalid($error)
+    public static function route($path)
     {
-        if (!empty($error)) {
-            return 'is-invalid';
-        }
+        $url = BASE_URL . $path;
+        return $url;
     }
 
     //ラジオボタンの選択
@@ -34,5 +33,4 @@ class Form
         }
         return '';
     }
-
 }

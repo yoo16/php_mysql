@@ -8,4 +8,4 @@ define('DB_PASSWORD', '');
 define('DB_DATABASE', 'my_shop');
 
 //URL_BASE
-define('BASE_URL', '/php_mysql/my_shop/');
+define('BASE_URL', '/my_shop/');

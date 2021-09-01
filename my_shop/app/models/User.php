@@ -18,6 +18,27 @@ class User extends Model
         return $errors;
     }
 
+    public function validateEdit($data)
+    {
+        $errors = [];
+        if (empty($data['name'])) $errors['name'] = 'ユーザ名を入力してください。';
+        if (empty($data['email'])) $errors['email'] = 'Emailを入力してください。';
+        return $errors;
+    }
+
+    public function validatePassword($data)
+    {
+        $errors = [];
+        if (empty($data['new_password'])) {
+            $errors['new_password'] = '新しいパスワードを入力してください。';
+        } else if (empty($data['new_password_2'])) {
+            $errors['new_password'] = '新しいパスワード（確認用）を入力してください。';
+        } else if ($data['new_password']) {
+            $errors['new_password'] = 'パスワードが一致していません。';
+        }
+        return $errors;
+    }
+
     public function all($limit = 20, $offset = 0)
     {
         $sql = "SELECT * FROM users LIMIT {$limit} OFFSET {$offset};";
@@ -53,14 +74,19 @@ class User extends Model
 
     public function update($data)
     {
-        $sql = "UPDATE users SET 
-            name = :name,
-            email = :email,
-            password = password:
-            gender = gender:
-            WHERE id = :id;";
+        foreach (array_keys($data) as $column) {
+            if ($column != 'id') $columns[] = "{$column} = :{$column}";
+        }
+        $column = implode(',', $columns);
+        $sql = "UPDATE users SET {$column} WHERE id = :id;";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute($data);
+    }
+
+    public function saveAuth($id)
+    {
+        $this->findById($id);
+        if ($this->value) Session::save('auth_user', $this->value);
     }
 
     public function delete($id)
