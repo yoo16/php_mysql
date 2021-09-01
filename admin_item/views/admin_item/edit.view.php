@@ -28,7 +28,7 @@
         <div>
             <button class="btn btn-primary">登録</button>
             <a class="btn btn-outline-primary" href="list.php">戻る</a>
-            <input type="hidden" value="<?= $item->value['id'] ?>">
+            <input type="hidden" name="id" value="<?= $item->value['id'] ?>">
         </div>
     </form>
 

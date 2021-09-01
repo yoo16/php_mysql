@@ -39,6 +39,18 @@ class Item extends Model
         return $stmt->execute($data);
     }
 
+    function update($data)
+    {
+        $sql = "UPDATE items SET 
+            code = :code,
+            name = :name,
+            price = :price,
+            stock = :stock
+            WHERE id = :id;";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute($data);
+    }
+
     function delete($id)
     {
         $sql = "DELETE FROM items WHERE id = :id;";
