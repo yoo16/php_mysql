@@ -8,19 +8,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $posts = check($_POST);
     $errors = validate($posts);
 
-    //TODO 商品コード重複
+    //TODO 演習：商品コード重複チェック
 
     //セッション登録
     $_SESSION['item'] = $posts;
     $_SESSION['errors'] = $errors;
-    if (!$errors) {
-        if (insert($pdo, $posts)) {
-            unset($_SESSION['posts']);
-            header('Location: list.php');
-            exit;
-        }
+    if (!$errors && insert($pdo, $posts)) {
+        unset($_SESSION['item']);
+        header('Location: list.php');
+    } else {
+        header('Location: input.php');
     }
-    header('Location: input.php');
 }
 
 function check($posts)
@@ -48,4 +46,10 @@ function insert($pdo, $data)
             VALUES (:code, :name, :price, :stock)";
     $stmt = $pdo->prepare($sql);
     return $stmt->execute($data);
+}
+
+//演習：商品コード重複チェック
+function findByCode()
+{
+
 }

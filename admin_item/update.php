@@ -4,19 +4,6 @@ require_once 'connect.php';
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($_POST['id']) {
-        $item = check($_POST);
-        $_SESSION['item'] = $item;
-        $_SESSION['errors'] = $errors = validate($item);
-        if (!$errors) {
-            if (isset($_SESSION['item'])) unset($_SESSION['item']);
-            update($pdo, $item);
-        }
-    }
-    header("Location: edit.php?id={$item['id']}");
-}
-
 function update($pdo, $data)
 {
     $sql = "UPDATE items SET 
@@ -46,4 +33,17 @@ function validate($data)
     if (empty($data['price'])) $errors['price'] = '価格を入力してください。';
     if ($data['stock'] < 0) $errors['stock'] = '在庫数を入力してください。';
     return $errors;
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_POST['id']) {
+        $item = check($_POST);
+        $_SESSION['item'] = $item;
+        $_SESSION['errors'] = $errors = validate($item);
+        if (!$errors) {
+            if (isset($_SESSION['item'])) unset($_SESSION['item']);
+            update($pdo, $item);
+        }
+    }
+    header("Location: edit.php?id={$item['id']}");
 }
