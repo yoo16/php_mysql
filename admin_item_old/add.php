@@ -4,30 +4,32 @@ require_once 'connect.php';
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $posts = check($_POST);
-    $errors = validate($posts);
-
-    //TODO 商品コード重複
-
-    //セッション登録
-    $_SESSION['item'] = $posts;
-    $_SESSION['errors'] = $errors;
-    if (!$errors) {
-        if (insert($pdo, $posts)) {
-            unset($_SESSION['item']);
-            header('Location: list.php');
-            exit;
-        }
-    }
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: input.php');
 }
+
+$posts = check($_POST);
+$errors = validate($posts);
+
+//TODO 商品コード重複
+
+//セッション登録
+$_SESSION['item'] = $posts;
+$_SESSION['errors'] = $errors;
+if (!$errors) {
+    if (insert($pdo, $posts)) {
+        unset($_SESSION['item']);
+        header('Location: list.php');
+        exit;
+    }
+}
+header('Location: input.php');
 
 function check($posts)
 {
     if (empty($posts)) return;
     foreach ($posts as $column => $post) {
-        $posts[$column] = htmlspecialchars($post, ENT_QUOTES);
+        $posts[$column] = htmlspecialchars($post, ENT_QUOTES, 'UTF-8');
     }
     return $posts;
 }
