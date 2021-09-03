@@ -22,7 +22,7 @@ function findById($pdo, $id)
 
 <body>
     <div class="container">
-        <h2 class="h2">商品登録</h2>
+        <h2 class="h2">商品編集</h2>
         <form action="update.php" method="post">
             <div class="mb-3 form-floating">
                 <input id="code" type="text" class="form-control" 
@@ -49,7 +49,7 @@ function findById($pdo, $id)
                 <p class="text-danger pt-2"><?= @$errors['stock'] ?></p>
             </div>
             <div>
-                <button class="btn btn-primary">登録</button>
+                <button class="btn btn-primary">更新</button>
                 <a class="btn btn-outline-primary" href="list.php">戻る</a>
                 <input type="hidden" name="id" value="<?= $item['id'] ?>">
             </div>
