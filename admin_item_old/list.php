@@ -2,6 +2,16 @@
 require_once 'config.php';
 require_once 'connect.php';
 
+session_start();
+
+//セッションがあれば削除
+if (!empty($_SESSION['item'])) {
+    unset($_SESSION['item']);
+}
+if (!empty($_SESSION['errors'])) {
+    unset($_SESSION['errors']);
+}
+
 if (isset($_GET['keyword']) || isset($_GET['code'])) {
     $params = check($_GET);
     $items = search($pdo, $params);

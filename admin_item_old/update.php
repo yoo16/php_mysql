@@ -39,7 +39,6 @@ function findByCode($pdo, $code)
 
 function findById($pdo, $id)
 {
-    $id = htmlspecialchars($id);
     $sql = "SELECT * FROM items WHERE id = :id";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(['id' => $id]);

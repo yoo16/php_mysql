@@ -2,14 +2,24 @@
 require_once 'config.php';
 require_once 'connect.php';
 
+session_start();
+
+if (isset($_SESSION['item'])) {
+    $item = $_SESSION['item'];
+}
+if (isset($_SESSION['errors'])) {
+    $errors = $_SESSION['errors'];
+    unset($_SESSION['errors']);
+}
+
 if (!empty($_GET['id'])) $item = findById($pdo, $_GET['id']);
 if (empty($item)) header('Location: list.php');
 
 function findById($pdo, $id)
 {
-    $id = htmlspecialchars($id);
-    $sql = "SELECT * FROM items WHERE id = {$id}";
-    $stmt = $pdo->query($sql);
+    $sql = "SELECT * FROM items WHERE id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(['id' => $id]);
     $item = $stmt->fetch(PDO::FETCH_ASSOC);
     return $item;
 }
