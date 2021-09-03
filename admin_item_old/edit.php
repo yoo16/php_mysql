@@ -51,13 +51,13 @@ function findById($pdo, $id)
             <div>
                 <button class="btn btn-primary">登録</button>
                 <a class="btn btn-outline-primary" href="list.php">戻る</a>
-                <input type="hidden" value="<?= $item['id'] ?>">
+                <input type="hidden" name="id" value="<?= $item['id'] ?>">
             </div>
         </form>
 
         <form action="delete.php" method="post" class="mt-3">
             <button class="btn btn-danger" onClick="return confirm('削除しても良いですか？')">削除</button>
-            <input type="hidden" value="<?= $item['id'] ?>">
+            <input type="hidden" name="id" value="<?= $item['id'] ?>">
         </form>
     </div>
 </body>
