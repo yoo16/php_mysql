@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['errors'] = $errors;
     if (!$errors) {
         if (insert($pdo, $posts)) {
-            unset($_SESSION['posts']);
+            unset($_SESSION['item']);
             header('Location: list.php');
             exit;
         }
