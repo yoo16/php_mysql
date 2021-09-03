@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 function delete($pdo, $id)
 {
-    $sql = "DELETE FROM items SET WHERE id = :id;";
+    $sql = "DELETE FROM items WHERE id = :id;";
     $stmt = $pdo->prepare($sql);
     return $stmt->execute(['id' => $id]);
 }
