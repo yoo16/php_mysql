@@ -19,9 +19,9 @@ function delete($pdo, $id)
 
 function findById($pdo, $id)
 {
-    $id = htmlspecialchars($id);
-    $sql = "SELECT * FROM items WHERE id = {$id}";
-    $stmt = $pdo->query($sql);
+    $sql = "SELECT * FROM items WHERE id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(['id' => $id]);
     $item = $stmt->fetch(PDO::FETCH_ASSOC);
     return $item;
 }
