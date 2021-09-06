@@ -2,6 +2,13 @@
 require_once 'config.php';
 require_once 'connect.php';
 
+session_start();
+
+//セッション削除
+if (!empty($_SESSION['user'])) {
+    unset($_SESSION['user']);
+}
+
 //ユーザデータの読み込み
 $users = all($pdo);
 

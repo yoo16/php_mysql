@@ -1,45 +1,14 @@
 <?php
-require_once 'config.php';
-require_once 'connect.php';
+session_start();
 
-//POSTデータがあれば書き込み
-if (!empty($_POST)) {
-    $posts = check($_POST);
-    $errors = validate($posts);
-    if (!$errors && insert($pdo, $_POST)) {
-        header('Location: list.php');
-        exit;
-    }
+//セッションデータ取得
+if (!empty($_SESSION['user'])) {
+    $user = $_SESSION['user'];
 }
-
-//書き込みの関数
-function check($posts)
-{
-    if (empty($posts)) return;
-    foreach ($posts as $column => $post) {
-        $posts[$column] = htmlspecialchars($post, ENT_QUOTES, 'UTF-8');
-    }
-    return $posts;
+if (!empty($_SESSION['errors'])) {
+    $errors = $_SESSION['errors'];
+    unset($_SESSION['errors']);
 }
-
-function validate($data)
-{
-    $errors = [];
-    if (empty($data['name'])) $errors['name'] = '氏名を入力してください。';
-    if (empty($data['email'])) $errors['email'] = 'Emailを入力してください。';
-    if (empty($data['password'])) $errors['password'] = 'パスワードを入力してください。';
-    return $errors;
-}
-
-function insert($pdo, $data)
-{
-    $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
-    $sql = "INSERT INTO users (name, email, password)
-            VALUES (:name, :email, :password)";
-    $stmt = $pdo->prepare($sql);
-    return $stmt->execute($data);
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +25,8 @@ function insert($pdo, $data)
 
 <body>
     <div class="container">
-        <form action="" method="post">
+        <h1 class="h1 text-center p-3">ユーザ登録</h1>
+        <form action="add.php" method="post">
             <div class="mb-3 form-floating">
                 <input id="code" type="text" class="form-control" name="name" value="<?= @$user['name'] ?>">
                 <label for="code">氏名</label>
@@ -73,6 +43,7 @@ function insert($pdo, $data)
                 <p class="text-danger pt-2"><?= @$errors['password'] ?></p>
             </div>
             <button class="btn btn-primary">登録</button>
+            <a href="list.php" class="btn btn-outline-primary">戻る</a>
         </form>
     </div>
 </body>
