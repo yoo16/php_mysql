@@ -5,8 +5,8 @@ class User extends Model
 {
     public function auth($email, $password)
     {
-        $this->findByEmail($email);
-        return (password_verify($password, $this->value['password']));
+        $value = $this->findByEmail($email);
+        return (password_verify($password, $value['password']));
     }
 
     public function validate($data)
@@ -60,12 +60,13 @@ class User extends Model
         $sql = "SELECT * FROM users WHERE email = :email";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute(['email' => $email]);
-        $this->value = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $this->value;
+        $value = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $value;
     }
 
     public function insert($data)
     {
+        $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
         $sql = "INSERT INTO users (name, email, password, gender)
             VALUES (:name, :email, :password, :gender)";
         $stmt = $this->pdo->prepare($sql);

@@ -13,6 +13,9 @@
                 </div>
                 <button class="w-100 btn btn-lg btn-primary">Sign In</button>
             </form>
+            <div class="mt-3">
+                <a href="../regist/" class="w-100 btn btn btn-outline-primary">会員登録</a>
+            </div>
         </div>
     </main>
 </div>

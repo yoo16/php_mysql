@@ -16,6 +16,8 @@ $posts = check($_POST);
 //バリデーション
 $errors = validate($posts);
 
+//TODO 重複チェック
+
 //セッション登録
 $_SESSION['user'] = $posts;
 $_SESSION['errors'] = $errors;
@@ -57,4 +59,14 @@ function insert($pdo, $data)
             VALUES (:name, :email, :password)";
     $stmt = $pdo->prepare($sql);
     return $stmt->execute($data);
+}
+
+function findByEmail($pdo, $data)
+{
+    $sql = "SELECT * FROM users WHERE email = :email";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':email', $data['email'], PDO::PARAM_STR);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $user;
 }

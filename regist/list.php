@@ -12,11 +12,15 @@ if (!empty($_SESSION['user'])) {
 //ユーザデータの読み込み
 $users = all($pdo);
 
-function all($pdo, $limit = 20, $offset = 0)
+function all($pdo, $limit = 10, $offset = 0)
 {
     $sql = "SELECT * FROM users LIMIT {$limit} OFFSET {$offset};";
-    $users = $pdo->query($sql);
-    return $users;
+    $rows = [];
+    $stmt = $pdo->query($sql);
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $rows[] = $row;
+    }
+    return $rows;
 }
 
 ?>

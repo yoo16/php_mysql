@@ -25,6 +25,8 @@ class Model
             echo "接続失敗: " . $e->getMessage();
             exit;
         }
+
+        $this->value['gender'] = 'male';
     }
 
     public function check($posts)
