@@ -46,5 +46,21 @@ class User extends Model
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute($data);
     }
-    
+
+    function validateRegist($data)
+    {
+        $errors = [];
+        if (empty($data['name'])) $errors['name'] = '氏名を入力してください。';
+        if (empty($data['email'])) {
+            $errors['email'] = 'Emailを入力してください。';
+        } else if ($this->findByEmail($data['email'])) {
+            $errors['email'] = 'Emailが登録済みです';
+        }
+        if (empty($data['password'])) {
+            $errors['password'] = 'パスワードを入力してください。';
+        } else if (strlen($data['password']) < 6 || strlen($data['password']) > 20) {
+            $errors['password'] = 'パスワードは6文字以上、20文字以内で入力してください';
+        }
+        return $errors;
+    }
 }

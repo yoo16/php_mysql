@@ -1,7 +1,6 @@
 <?php
 require_once('../app.php');
 
-//セッション削除
 if (!empty($_SESSION['regist'])) {
     unset($_SESSION['regist']);
 } else {

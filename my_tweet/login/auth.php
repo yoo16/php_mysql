@@ -5,13 +5,18 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$_SESSION['login'] = $_POST;
 $user = new User();
-$user->bind($_POST);
+$post = $user->check($_POST);
+$_SESSION['login'] = $post;
 
-if ($auth_user = $user->auth($user->value['email'], $user->value['password'])) {
+if ($auth_user = $user->auth($post['email'], $post['password'])) {
+    //ログイン成功
     $_SESSION['auth_user'] = $auth_user;
     header('Location: ../');
+    exit;
 } else {
+    //ログイン失敗
+    $_SESSION['errors']['login_invalid'] = "ユーザ名またはパスワードが間違っています。";
     header('Location: ./');
+    exit;
 }

@@ -36,8 +36,8 @@ $tweet->get();
                     </form>
                 </div>
 
-                <?php foreach($tweet->values as $value): ?>
-                <?php include('components/tweet.php') ?>
+                <?php foreach ($tweet->values as $value) : ?>
+                    <?php include('components/tweet.php') ?>
                 <?php endforeach ?>
             </main>
         </div>

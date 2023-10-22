@@ -2,6 +2,11 @@
 require_once 'Model.php';
 class Tweet extends Model
 {
+
+    public function validate($data) {
+        
+    }
+
     public function get()
     {
         $sql = "SELECT 

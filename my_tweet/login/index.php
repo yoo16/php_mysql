@@ -4,6 +4,10 @@ require_once '../app.php';
 if (!empty($_SESSION['login'])) {
     $user = $_SESSION['login'];
 }
+if (!empty($_SESSION['errors'])) {
+    $errors = $_SESSION['errors'];
+    unset($_SESSION['errors']);
+}
 ?>
 
 <!DOCTYPE html>
