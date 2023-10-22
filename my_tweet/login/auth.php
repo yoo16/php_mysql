@@ -1,9 +1,7 @@
 <?php
 require_once '../app.php';
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    exit;
-}
+checkPost();
 
 $user = new User();
 $post = $user->check($_POST);

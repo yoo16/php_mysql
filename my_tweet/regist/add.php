@@ -1,11 +1,7 @@
 <?php
 require_once '../app.php';
 
-//POSTリクエストチェック
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: input.php');
-    exit;
-}
+checkPost();
 
 //ユーザ登録
 if ($data = $_SESSION['regist']) {

@@ -1,11 +1,7 @@
 <?php
 require_once('app.php');
 
-$auth_user = User::authUser();
-if (!$auth_user) {
-    header('Location: login/');
-    exit;
-}
+$auth_user = checkAuth('login/');
 
 $tweet = new Tweet();
 $tweet->get();

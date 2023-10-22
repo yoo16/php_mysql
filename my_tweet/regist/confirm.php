@@ -1,11 +1,7 @@
 <?php
 require_once('../app.php');
 
-//POSTリクエストチェック
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: input.php');
-    exit;
-}
+checkPost();
 
 $user = new User();
 $data = $user->check($_POST);

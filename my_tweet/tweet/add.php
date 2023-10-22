@@ -1,15 +1,8 @@
 <?php
 require_once('../app.php');
 
-if ($_SERVER['REQUEST_METHOD'] !== "POST") {
-    exit;
-}
-
-$auth_user = User::authUser();
-if (!$auth_user) {
-    header('Location: ../login/');
-    exit;
-}
+$auth_user = checkAuth('../login/');
+checkPost();
 
 $tweet = new Tweet();
 $data = $tweet->check($_POST);
