@@ -22,8 +22,6 @@ if (!empty($_SESSION['errors'])) {
                 <form action="auth.php" method="post">
                     <h3 class="h3 mb-3 fw-normal">Sign In</h3>
 
-                    <?php include('../components/error_messages.php') ?>
-
                     <div class="form-floating mb-1">
                         <input type="text" name="email" value="<?= @$user['email'] ?>" class="form-control border-0 border-bottom rounded-0" id="email">
                         <label for="email">Email</label>
@@ -32,11 +30,14 @@ if (!empty($_SESSION['errors'])) {
                         <input type="password" name="password" class="form-control border-0 border-bottom rounded-0" id="password">
                         <label for="password">パスワード</label>
                     </div>
-                    <button class="w-100 btn btn-primary">Sign In</button>
+
+                    <?php include('../components/error_messages.php') ?>
+
+                    <div class="mt-3">
+                        <button class="w-100 mb-2 btn btn-primary">Sign In</button>
+                        <a href="../regist/" class="w-100 btn btn-outline-primary">会員登録</a>
+                    </div>
                 </form>
-                <div class="mt-3">
-                    <a href="../regist/" class="w-100 btn btn-outline-primary">会員登録</a>
-                </div>
             </div>
         </main>
     </div>
