@@ -3,6 +3,7 @@ class Model
 {
     public $pdo;
     public $value;
+    public $table;
     public $values;
     function __construct()
     {
@@ -37,6 +38,21 @@ class Model
     {
         $data = $this->check($data);
         $this->value = $data;
+    }
+
+    public function insert($data)
+    {
+        if (!$data) return;
+        $columns = array_keys($data);
+        $column = implode(',', $columns);
+
+        foreach ($columns as $column => $value) {
+            $values[] = ":{$column}";
+        }
+        $value = implode(',', $values);
+        $sql = "INSERT INTO {$this->table} ({$column}) VALUES ({$value})";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute($data);
     }
 
 }

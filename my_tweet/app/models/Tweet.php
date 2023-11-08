@@ -3,6 +3,7 @@ require_once 'Model.php';
 class Tweet extends Model
 {
 
+    public $table = "tweets";
     public function validate($data) {
         
     }
