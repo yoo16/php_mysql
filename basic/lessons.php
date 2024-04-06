@@ -1,6 +1,7 @@
 <?php
-
-require_once 'connect.php';
+require_once 'DB.php';
+$db = new DB();
+$pdo = $db->pdo;
 
 //1
 echo '---- id = 20 のユーザ名 ----';

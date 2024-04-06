@@ -1,8 +1,10 @@
 <?php
+require_once 'env.php';
+
 $db_connection = DB_CONNECTION;
 $db_name = DB_DATABASE;
 $db_host = DB_HOST;
-$db_port = DB_HOST;
+$db_port = DB_PORT;
 $db_user = DB_USERNAME;
 $db_password = DB_PASSWORD;
 
@@ -15,3 +17,17 @@ try {
     echo "接続失敗: " . $e->getMessage();
     exit;
 }
+?>
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>接続成功</h3>
+    <?= var_dump($pdo) ?>
+</body>
+</html>
