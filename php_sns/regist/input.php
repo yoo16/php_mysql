@@ -1,6 +1,9 @@
 <?php
 require_once "../app.php";
 
+if (isset($_SESSION[APP_KEY]['regist'])) {
+    $regist = $_SESSION[APP_KEY]['regist'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +23,7 @@ require_once "../app.php";
             <h2 class="text-2xl mb-3 font-normal text-center">Sign Up</h2>
             <form action="regist/confirm.php" method="post">
                 <div class="relative mb-4">
-                    <input class="block
+                    <input type="text" name="account_name" id="account_name" value="<?= @$regist['account_name'] ?>" class="block
                         px-2.5 pb-2.5 pt-6 mb-3
                         w-full rounded-lg
                         text-sm 
@@ -29,7 +32,7 @@ require_once "../app.php";
                         focus:outline-none 
                         focus:ring-1 
                         focus:ring-blue-600 
-                        peer" type="text" name="account_name" id="account_name" placeholder=" " required>
+                        peer" placeholder=" " required>
                     <label for="account_name" class="absolute 
                         text-sm text-gray-400 
                         duration-300 
@@ -47,7 +50,7 @@ require_once "../app.php";
                     </label>
                 </div>
                 <div class="relative mb-4">
-                    <input class="block
+                    <input type="email" name="email" value="<?= @$regist['email'] ?>" id="email" class="block
                         px-2.5 pb-2.5 pt-6 mb-3
                         w-full rounded-lg
                         text-sm 
@@ -56,7 +59,7 @@ require_once "../app.php";
                         focus:outline-none 
                         focus:ring-1 
                         focus:ring-blue-600 
-                        peer" type="email" name="email" id="email" placeholder=" " required>
+                        peer" placeholder=" " required>
                     <label for="email" class="absolute 
                         text-sm text-gray-400 
                         duration-300 
@@ -74,7 +77,7 @@ require_once "../app.php";
                     </label>
                 </div>
                 <div class="relative mb-4">
-                    <input class="block
+                    <input type="password" name="password" id="password" class="block
                         px-2.5 pb-2.5 pt-6 mb-3 
                         w-full rounded-lg
                         text-sm 
@@ -83,7 +86,7 @@ require_once "../app.php";
                         focus:outline-none 
                         focus:ring-1 
                         focus:ring-blue-600 
-                        peer" type="password" name="password" id="password" placeholder=" " required>
+                        peer" placeholder=" " required>
                     <label for="password" class="absolute 
                         text-sm text-gray-400 
                         duration-300 
@@ -102,7 +105,7 @@ require_once "../app.php";
                 </div>
 
                 <div class="relative mb-4">
-                    <input class="block
+                    <input type="text" name="name" value="<?= @$regist['name'] ?>" id="name" class="block
                         px-2.5 pb-2.5 pt-6 mb-3
                         w-full rounded-lg
                         text-sm 
@@ -111,7 +114,7 @@ require_once "../app.php";
                         focus:outline-none 
                         focus:ring-1 
                         focus:ring-blue-600 
-                        peer" type="text" name="name" id="name" placeholder=" " required>
+                        peer" placeholder=" " required>
                     <label for="name" class="absolute 
                         text-sm text-gray-400 
                         duration-300 
