@@ -9,13 +9,7 @@ if (isset($_SESSION[APP_KEY]['regist'])) {
 <!DOCTYPE html>
 <html lang="ja">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= SITE_TITLE ?></title>
-    <base href="<?= BASE_URL ?>">
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+<?php include('../components/head.php') ?>
 
 <body>
     <main id="register" class="flex justify-center">

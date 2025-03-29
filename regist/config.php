@@ -1,7 +1,0 @@
-<?php
-CONST DB_CONNECTION = 'mysql';
-CONST DB_HOST = 'localhost';
-CONST DB_PORT = '3306';
-CONST DB_USERNAME = 'root';
-CONST DB_PASSWORD = '';
-CONST DB_DATABASE = 'my_regist';

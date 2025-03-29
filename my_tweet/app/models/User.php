@@ -38,6 +38,7 @@ class User extends Model
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user;
     }
+
     public function insert($data)
     {
         $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);

@@ -21,7 +21,7 @@ if (isset($_SESSION[APP_KEY]['regist'])) {
     <main id="regist" class="flex justify-center">
         <div class="w-1/2 mt-3 p-5">
             <h2 class="text-2xl mb-3 font-normal text-center">Sign Up</h2>
-            <form action="regist/confirm.php" method="post">
+            <form action="regist/add.php" method="post">
                 <div class="relative mb-4">
                     <input type="text" name="account_name" id="account_name" value="<?= @$regist['account_name'] ?>" class="block
                         px-2.5 pb-2.5 pt-6 mb-3

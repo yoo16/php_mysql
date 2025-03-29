@@ -5,6 +5,8 @@ require_once "../app.php";
 <!DOCTYPE html>
 <html lang="ja">
 
+<?php include('../components/head.php') ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

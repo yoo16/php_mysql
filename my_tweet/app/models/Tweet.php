@@ -4,6 +4,7 @@ class Tweet extends Model
 {
 
     public $table = "tweets";
+
     public function validate($data) {
         
     }
