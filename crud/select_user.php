@@ -9,16 +9,21 @@ $users = get();
 // ユーザデータを取得する関数
 function get($limit = 10)
 {
-    // DB接続
-    $pdo = Database::getInstance();
-    // SQL作成
-    $sql = "SELECT * FROM users LIMIT {$limit};";
-    // queryメソッドでSQLを実行し、PDOStatementオブジェクトを取得
-    $stmt = $pdo->query($sql);
-    // Userデータを取得
-    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    // 取得したデータを返却
-    return $users;
+    try {
+        // DB接続
+        $pdo = Database::getInstance();
+        // SQL作成
+        $sql = "SELECT * FROM users LIMIT {$limit};";
+        // queryメソッドでSQLを実行し、PDOStatementオブジェクトを取得
+        $stmt = $pdo->query($sql);
+        // Userデータを取得
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // 取得したデータを返却
+        return $users;
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+        exit('システムエラーが発生しました。');
+    }
 }
 ?>
 

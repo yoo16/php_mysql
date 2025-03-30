@@ -4,7 +4,7 @@ require_once 'lib/Database.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // idがPOSTされている場合、削除処理を実行
-    delete($_POST['id']);
+    $result = delete($_POST['id']);
 }
 
 // POSTリクエストの場合、ユーザデータを削除
@@ -14,11 +14,17 @@ function delete($id)
     $pdo = Database::getInstance();
     // SQL作成
     $sql = "DELETE FROM users WHERE id = :id;";
-    // SQLを設定して、プリペアードステートメントを生成
-    $stmt = $pdo->prepare($sql);
-    // SQL実行
-    $result = $stmt->execute(['id' => $id]);
-    return $result;
+
+    try {
+        // SQLを設定して、プリペアードステートメントを生成
+        $stmt = $pdo->prepare($sql);
+        // SQL実行
+        $result = $stmt->execute(['id' => $id]);
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+        $error = "ユーザの削除に失敗しました。" . $e->getMessage();
+        return $error;
+    }
 }
 ?>
 
@@ -50,6 +56,13 @@ function delete($id)
                 </button>
             </div>
         </form>
+
+        <h2 class="py-2 text-2xl">結果</h2>
+        <?php if (isset($result)): ?>
+            <div class="border-b border-gray-200 p-2">
+                <?= $result ?>
+            </div>
+        <?php endif; ?>
     </main>
 </body>
 

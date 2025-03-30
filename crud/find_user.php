@@ -14,20 +14,28 @@ function find($id)
     // DB接続
     $pdo = Database::getInstance();
 
-    // 1) query() でクエリ実行
-    // SQLインジェクションの脆弱性がある
-    // '' OR 1=1;-- などの文字列を入力すると全ユーザが取得される
-    // $sql = "SELECT * FROM users WHERE id = {$id};";
-    // $stmt = $pdo->query($sql);
+    // 1) プリペアードステートメントで実行
+    // SQL文（プレースホルダ）
+    $sql = "SELECT * FROM users WHERE id = :id";
 
-    // 2) プリペアードステートメントで実行
-    $sql = "SELECT * FROM users WHERE id = :id;";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(['id' => $id]);
+    try {
+        // SQL事前準備
+        $stmt = $pdo->prepare($sql);
+        // プレスホルダー（:id） のパラメータを引数にSQL実行
+        $stmt->execute(['id' => $id]);
 
-    // Userデータを取得
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $user;
+        // 2) SQLインジェクションの脆弱性がある実行
+        // '' OR 1=1;-- などの文字列を入力すると全ユーザが取得される
+        // $sql = "SELECT * FROM users WHERE id = {$id};";
+        // $stmt = $pdo->query($sql);
+
+        // Userデータを取得
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user;
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+        return;
+    }
 }
 ?>
 

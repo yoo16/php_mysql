@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // POSTリクエストの場合、ユーザデータを登録
 function insert($posts)
 {
+    // パスワードハッシュ化
     $posts['password'] = password_hash($posts['password'], PASSWORD_DEFAULT);
     // DB接続
     $pdo = Database::getInstance();
@@ -19,17 +20,22 @@ function insert($posts)
     $sql = "INSERT INTO users (account_name, email, password, display_name)
         VALUES(:account_name, :email, :password, :display_name);";
 
-    // SQLを設定して、プリペアードステートメントを生成
-    $stmt = $pdo->prepare($sql);
-    // SQL実行
-    $result = $stmt->execute($posts);
-    // 成功した場合は、登録したユーザのIDを取得
-    if ($result) {
-        $user_id = $pdo->lastInsertId();
-        // 登録したユーザのIDを返却
-        return $user_id;
+    try {
+        // SQLを設定して、プリペアードステートメントを生成
+        $stmt = $pdo->prepare($sql);
+        // SQL実行
+        $result = $stmt->execute($posts);
+        // 成功した場合は、登録したユーザのIDを取得
+        if ($result) {
+            $user_id = $pdo->lastInsertId();
+            // 登録したユーザのIDを返却
+            return $user_id;
+        }
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+        $error = "ユーザの登録に失敗しました。" . $e->getMessage();
+        return $error;
     }
-    return;
 }
 ?>
 
@@ -72,11 +78,9 @@ function insert($posts)
             </div>
         </form>
 
-        <h2 class="text-2xl mb-6">結果</h2>
+        <h2 class="text-2xl mb-6">INSERT完了後のユーザID</h2>
         <div class="bg-gray-100 p-4 rounded-md">
-            <?php if (!empty($user_id)): ?>
-                <?= $user_id ?>
-            <?php endif; ?>
+            <?= isset($user_id) ? $user_id : "" ?>
         </div>
     </main>
 </body>

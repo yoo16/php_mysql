@@ -4,7 +4,7 @@ require_once 'lib/Database.php';
 
 // POSTリクエストの場合、ユーザデータを更新
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    update($_POST);
+    $result = update($_POST);
 }
 
 // ユーザデータを更新する関数
@@ -14,10 +14,16 @@ function update($posts)
     $pdo = Database::getInstance();
     // SQL作成
     $sql = "UPDATE users SET account_name = :account_name WHERE id = :id;";
-    // SQLを設定して、プリペアードステートメントを生成
-    $stmt = $pdo->prepare($sql);
-    // SQL実行
-    $stmt->execute($posts);
+    try {
+        // SQLを設定して、プリペアードステートメントを生成
+        $stmt = $pdo->prepare($sql);
+        // SQL実行
+        return $stmt->execute($posts);
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+        $error = "ユーザの更新に失敗しました。" . $e->getMessage();
+        return $error;
+    }
 }
 ?>
 
@@ -55,6 +61,13 @@ function update($posts)
                 </button>
             </div>
         </form>
+
+        <h2 class="py-2 text-2xl">結果</h2>
+        <?php if (isset($result)): ?>
+            <div class="border-b border-gray-200 p-2">
+                <?= $result ?>
+            </div>
+        <?php endif; ?>
     </main>
 </body>
 

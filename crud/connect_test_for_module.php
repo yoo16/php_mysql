@@ -23,17 +23,17 @@ $pdo = Database::getInstance();
         <h2 class="text-2xl text-center p-6">接続情報</h2>
         <div class="grid grid-cols-2 gap-2 bg-gray-200 p-2 rounded-md">
             <div>DB_CONNECTION</div>
-            <div><?= $db_connection ?></div>
+            <div><?= DB_CONNECTION ?></div>
             <div>DB_DATABASE</div>
-            <div><?= $db_name ?></div>
+            <div><?= DB_DATABASE ?></div>
             <div>DB_HOST</div>
-            <div><?= $db_host ?></div>
+            <div><?= DB_HOST ?></div>
             <div>DB_PORT</div>
-            <div><?= $db_port ?></div>
+            <div><?= DB_PORT ?></div>
             <div>DB_USERNAME</div>
-            <div><?= $db_user ?></div>
+            <div><?= DB_USERNAME ?></div>
             <div>DB_PASSWORD</div>
-            <div><?= $db_password ?></div>
+            <div><?= DB_PASSWORD ?></div>
         </div>
 
         <h2 class="text-2xl text-center p-2">PDO</h2>
