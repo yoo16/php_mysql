@@ -1,6 +1,6 @@
 <?php
-require_once 'env.php';
-require_once 'lib/Database.php';
+require_once '../env.php';
+require_once '../lib/Database.php';
 
 $user_id = null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -12,15 +12,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // POSTリクエストの場合、ユーザデータを登録
 function insert($posts)
 {
-    // パスワードハッシュ化
-    $posts['password'] = password_hash($posts['password'], PASSWORD_DEFAULT);
-    // DB接続
-    $pdo = Database::getInstance();
-    // SQL作成
-    $sql = "INSERT INTO users (account_name, email, password, display_name)
+    try {
+        // パスワードハッシュ化
+        $posts['password'] = password_hash($posts['password'], PASSWORD_DEFAULT);
+        // DB接続
+        $pdo = Database::getInstance();
+        // SQL作成
+        $sql = "INSERT INTO users (account_name, email, password, display_name)
         VALUES(:account_name, :email, :password, :display_name);";
 
-    try {
         // SQLを設定して、プリペアードステートメントを生成
         $stmt = $pdo->prepare($sql);
         // SQL実行

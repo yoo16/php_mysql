@@ -1,15 +1,17 @@
 <?php
 require_once "../app.php";
 
-if (isset($_SESSION[APP_KEY]['regist'])) {
-    unset($_SESSION[APP_KEY]['regist']);
+if (empty($_SESSION[APP_KEY]['regist'])) {
+    header('Location: ../');
+    exit;
 }
+unset($_SESSION[APP_KEY]['regist']);
 ?>
 
 <!DOCTYPE html>
 <html lang="ja">
 
-<?php include('../components/head.php') ?>
+<?php include '../components/nav.php' ?>
 
 <body>
     <main id="register" class="flex justify-center">

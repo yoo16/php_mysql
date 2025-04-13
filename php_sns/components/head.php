@@ -4,4 +4,5 @@
     <title><?= SITE_TITLE ?></title>
     <base href="<?= BASE_URL ?>">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/app.js"></script>
 </head>

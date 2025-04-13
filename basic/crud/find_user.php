@@ -1,6 +1,6 @@
 <?php
-require_once 'env.php';
-require_once 'lib/Database.php';
+require_once '../env.php';
+require_once '../lib/Database.php';
 
 // GETパラメータからユーザIDを取得
 if (!empty($_GET['id'])) {

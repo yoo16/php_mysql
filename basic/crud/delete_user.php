@@ -1,6 +1,6 @@
 <?php
-require_once 'env.php';
-require_once 'lib/Database.php';
+require_once '../env.php';
+require_once '../lib/Database.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // idがPOSTされている場合、削除処理を実行
@@ -10,12 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // POSTリクエストの場合、ユーザデータを削除
 function delete($id)
 {
-    // DB接続
-    $pdo = Database::getInstance();
-    // SQL作成
-    $sql = "DELETE FROM users WHERE id = :id;";
-
     try {
+        // DB接続
+        $pdo = Database::getInstance();
+        // SQL作成
+        $sql = "DELETE FROM users WHERE id = :id;";
         // SQLを設定して、プリペアードステートメントを生成
         $stmt = $pdo->prepare($sql);
         // SQL実行

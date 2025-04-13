@@ -1,8 +1,8 @@
 <?php
 // env.php ファイルの読み込み
-require_once 'env.php';
+require_once '../env.php';
 // Database.php ファイルの読み込み
-require_once 'lib/Database.php';
+require_once '../lib/Database.php';
 
 // PDOインスタンスを取得
 $pdo = Database::getInstance();

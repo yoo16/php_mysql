@@ -13,6 +13,7 @@ require_once "../app.php";
     <title><?= SITE_TITLE ?></title>
     <base href="<?= BASE_URL ?>">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/app.js"></script>
 </head>
 
 <body>
@@ -22,7 +23,7 @@ require_once "../app.php";
             <form action="login/auth.php" method="post">
                 <div class="relative mb-4">
                     <div class="relative mb-4">
-                        <input type="email" name="email" id="email" class="block
+                        <input type="text" name="account_name" id="account_name" class="block
                         px-2.5 pb-2.5 pt-6 mb-3
                         w-full rounded-lg
                         text-sm 
@@ -32,7 +33,7 @@ require_once "../app.php";
                         focus:ring-1 
                         focus:ring-blue-600 
                         peer" placeholder=" " required>
-                        <label for="email" class="absolute 
+                        <label for="account_name" class="absolute 
                         text-sm text-gray-400 
                         duration-300 
                         transform -translate-y-4 scale-75 
@@ -45,7 +46,7 @@ require_once "../app.php";
                         peer-placeholder-shown:translate-y-0 
                         peer-focus:scale-75 
                         peer-focus:-translate-y-4">
-                            Email
+                            アカウント名
                         </label>
                     </div>
                     <div class="relative mb-4">
@@ -89,6 +90,15 @@ require_once "../app.php";
                     </div>
                 </div>
             </form>
+
+            <div>
+                <p class="text-sm text-center">
+                    <a href="regist/" class="text-blue-600 hover:underline">アカウントをお持ちでない方はこちら</a>
+                </p>
+                <p class="text-sm text-center">
+                    <button onclick="inputTestLoginUser()" class="p-3 text-gray-600 hover:underline">Test Input</button>
+                </p>
+            </div>
         </div>
     </main>
 </body>

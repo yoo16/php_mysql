@@ -1,6 +1,6 @@
 <?php
-require_once 'env.php';
-require_once 'lib/Database.php';
+require_once '../env.php';
+require_once '../lib/Database.php';
 
 if (isset($_GET['user_id'])) {
     $user_id = $_GET['user_id'];

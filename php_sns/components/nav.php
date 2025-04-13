@@ -13,7 +13,7 @@
             </a>
         </li>
         <li>
-            <a href="" class="inline-flex items-center">
+            <a href="user/logout.php" class="inline-flex items-center">
                 <img src="svg/logout.svg" class="w-10 mr-2">
                 <span href="login/logout.php">Sign out</span>
             </a>

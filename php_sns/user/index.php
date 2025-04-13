@@ -1,26 +1,22 @@
-<?php 
+<?php
 require_once '../app.php';
 
-if (empty($_SESSION[APP_KEY]['user'])) {
+// ユーザセッションの確認
+if (!isset($_SESSION[APP_KEY]['user'])) {
+    // ログインしていない場合はログイン画面にリダイレクト
     header('Location: ../login/');
-} else {
-    $user = $_SESSION[APP_KEY]['user'];
+    exit;
 }
+$user = $_SESSION[APP_KEY]['user'];
 ?>
 
 <!DOCTYPE html>
 <html lang="ja">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= SITE_TITLE ?></title>
-    <base href="<?= BASE_URL ?>">
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+<?php include '../components/nav.php' ?>
 
 <body>
-<main class="flex justify-center">
+    <main class="flex justify-center">
         <div class="w-full mt-3 p-5">
             <h2 class="text-2xl mb-3 font-normal text-center">ユーザホーム</h2>
             <div class="mb-4">
